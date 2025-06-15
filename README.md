@@ -7,3 +7,5 @@ simpan semua folder di dalam gaskeun-express
 ubah publik.htaccess jadi .htaccess
 
 ubah app.htaccess jadi .htaccess
+
+`localhost/gaskeun-express/public/`
