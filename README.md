@@ -34,7 +34,7 @@ gaskeun-express/
     - `public/publik.htaccess` → `public/.htaccess`
 
 3. Import database:
-    - Gunakan file `db_prakbasdat_mysql3_tables_only.sql`
+    - Gunakan file `db_prakbasdat`
     - Masukkan ke database MySQL melalui phpMyAdmin
 
 4. Akses proyek melalui browser:
