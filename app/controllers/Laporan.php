@@ -8,17 +8,15 @@ class Laporan extends Controller
         $laporanModel = $this->model('Laporan_model');
         $kotaModel = $this->model('Kota_model');
 
-        // Get filter values
-        $kota_tujuan = isset($_GET['kota_tujuan']) ? $_GET['kota_tujuan'] : '';
-        $status = isset($_GET['status']) ? $_GET['status'] : '';
+        // Fix URL parameter capture
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        parse_str($url ?? '', $params);
+
+        $kota_tujuan = isset($params['kota_tujuan']) && $params['kota_tujuan'] !== 'Semua Kota' ? $params['kota_tujuan'] : '';
+        $status = isset($params['status']) && $params['status'] !== 'Semua Status' ? $params['status'] : '';
 
         // Get data based on filters
-        if (!empty($kota_tujuan) || !empty($status)) {
-            $data['laporan'] = $laporanModel->getFilteredLaporan($kota_tujuan, $status);
-        } else {
-            $data['laporan'] = $laporanModel->getAllLaporan();
-        }
-
+        $data['laporan'] = $laporanModel->getFilteredLaporan($kota_tujuan, $status);
         $data['kota'] = $kotaModel->getAllKota();
         $data['selected_kota'] = $kota_tujuan;
         $data['selected_status'] = $status;
