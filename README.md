@@ -11,8 +11,6 @@ gaskeun-express/
 │   ├── core/
 │   ├── models/
 │   └── .htaccess        # Rename dari app.htaccess
-├── config/              # Konfigurasi seperti koneksi database
-│   └── database.php
 ├── public/              # Folder publik yang diakses dari browser
 │   ├── assets/
 │   ├── css/
@@ -22,7 +20,6 @@ gaskeun-express/
 │   └── .htaccess        # Rename dari publik.htaccess
 ├── .gitignore
 ├── README.md
-└── composer.json        # Opsional jika menggunakan autoload
 ```
 
 ## 🔧 Instalasi
