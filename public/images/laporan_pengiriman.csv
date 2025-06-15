@@ -1,0 +1,3 @@
+"ID Paket",Pengirim,Penerima,"Kota Asal","Kota Tujuan","Berat (Kg)",Biaya,Status,Tanggal
+PKT001,"Budi Santoso","Siti Aminah",Bandung,Jakarta,5.00,25000.00,"Dalam Pengantaran","2025-06-13 22:45:27"
+PKT002,"Budi Santoso","Siti Aminah",Jakarta,Bandung,10.00,25000.00,Transit,"2025-06-15 07:49:55"
