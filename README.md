@@ -5,22 +5,39 @@ Sistem manajemen ekspedisi sederhana berbasis PHP.
 ## 📁 Struktur Folder
 
 gaskeun-express/
+
 ├── app/ # Berisi controller, core, dan model aplikasi
+
 │ ├── controllers/
+
 │ ├── core/
+
 │ ├── models/
+
 │ └── .htaccess # Rename dari app.htaccess
+
 ├── config/ # Konfigurasi seperti koneksi database
+
 │ └── database.php
+
 ├── public/ # Folder publik yang diakses dari browser
+
 │ ├── assets/
+
 │ ├── css/
+
 │ ├── js/
+
 │ ├── img/
+
 │ ├── index.php # Front controller
+
 │ └── .htaccess # Rename dari publik.htaccess
+
 ├── .gitignore
+
 ├── README.md
+
 └── composer.json # Opsional jika menggunakan autoload
 
 
