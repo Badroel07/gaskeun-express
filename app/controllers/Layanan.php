@@ -65,18 +65,19 @@ class Layanan extends Controller {
     }
 
     // Menangani penghapusan data layanan
-    public function hapus($id) {
-        // Sanitasi ID yang diterima dari URL
+    public function hapus($id)
+    {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
-        if ($this->model('Layanan_model')->hapusDataLayanan($id) > 0) {
-            // Flasher::setFlash('berhasil', 'dihapus', 'success');
-            header('Location: ' . BASEURL . '/layanan');
-            exit;
-        } else {
-            // Flasher::setFlash('gagal', 'dihapus', 'danger');
-            header('Location: ' . BASEURL . '/layanan');
-            exit;
+        try {
+            if ($this->model('Layanan_model')->hapusDataLayanan($id) > 0) {
+                header('Location: ' . BASEURL . '/layanan');
+                exit;
+            } else {
+                echo "Data layanan gagal dihapus.";
+            }
+        } catch (Exception $e) {
+            echo "<script>alert('Gagal menghapus: data ini masih digunakan di tabel lain!'); window.location.href = '" . BASEURL . "/layanan';</script>";
         }
     }
 }

@@ -1,9 +1,11 @@
 <?php
 // app/controllers/Kota.php
 
-class Kota extends Controller {
+class Kota extends Controller
+{
     // Metode default saat mengakses /kota
-    public function index() {
+    public function index()
+    {
         $data['judul'] = 'Daftar Kota';
         $data['kota'] = $this->model('Kota_model')->getAllKota();
 
@@ -13,7 +15,8 @@ class Kota extends Controller {
     }
 
     // Menangani penambahan data kota baru
-    public function tambah() {
+    public function tambah()
+    {
         // Pastikan permintaan adalah POST (dari pengiriman form)
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->model('Kota_model')->tambahDataKota($_POST) > 0) {
@@ -34,7 +37,8 @@ class Kota extends Controller {
     }
 
     // Mengambil data kota untuk diubah (via AJAX)
-    public function getUbah() {
+    public function getUbah()
+    {
         // Mengambil ID dari POST request dan sanitasi
         $id = isset($_POST['id']) ? filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT) : null;
         if ($id) {
@@ -46,7 +50,8 @@ class Kota extends Controller {
     }
 
     // Menangani perubahan data kota
-    public function ubah() {
+    public function ubah()
+    {
         // Pastikan permintaan adalah POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->model('Kota_model')->ubahDataKota($_POST) > 0) {
@@ -65,18 +70,19 @@ class Kota extends Controller {
     }
 
     // Menangani penghapusan data kota
-    public function hapus($id) {
-        // Sanitasi ID yang diterima dari URL
+    public function hapus($id)
+    {
         $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
-        if ($this->model('Kota_model')->hapusDataKota($id) > 0) {
-            // Flasher::setFlash('berhasil', 'dihapus', 'success');
-            header('Location: ' . BASEURL . '/kota');
-            exit;
-        } else {
-            // Flasher::setFlash('gagal', 'dihapus', 'danger');
-            header('Location: ' . BASEURL . '/kota');
-            exit;
+        try {
+            if ($this->model('Kota_model')->hapusDataKota($id) > 0) {
+                header('Location: ' . BASEURL . '/kota');
+                exit;
+            } else {
+                echo "Data kota gagal dihapus.";
+            }
+        } catch (Exception $e) {
+            echo "<script>alert('Gagal menghapus: data ini masih digunakan di tabel lain!'); window.location.href = '" . BASEURL . "/kota';</script>";
         }
     }
 }

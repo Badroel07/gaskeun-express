@@ -28,17 +28,16 @@
                                     <td><?= htmlspecialchars($kota['nama_kota'] ?? '') ?></td>
                                     <td><?= htmlspecialchars($kota['zona_kota'] ?? '') ?></td>
                                     <td class="text-end">
-                                        <a href="<?= BASEURL; ?>/kota/ubah/<?= htmlspecialchars($kota['id_kota'] ?? '') ?>"
-                                           class="btn btn-sm btn-warning tampilModalUbahKota me-2"
-                                           data-bs-toggle="modal"
-                                           data-bs-target="#formModal"
-                                           data-id="<?= htmlspecialchars($kota['id_kota'] ?? '') ?>">
-                                           Ubah
+                                        <a href="#" class="btn btn-sm btn-warning tampilModalUbahKota me-2"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#formModal"
+                                            data-id="<?= htmlspecialchars($kota['id_kota']) ?>">
+                                            Ubah
                                         </a>
                                         <a href="<?= BASEURL; ?>/kota/hapus/<?= htmlspecialchars($kota['id_kota'] ?? '') ?>"
-                                           class="btn btn-sm btn-danger"
-                                           onclick="return confirm('Yakin ingin menghapus data ini?');">
-                                           Hapus
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Yakin ingin menghapus data ini?');">
+                                            Hapus
                                         </a>
                                     </td>
                                 </tr>
