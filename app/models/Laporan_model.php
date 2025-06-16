@@ -42,4 +42,10 @@ class Laporan_model
         
         return $this->db->resultSet();
     }
+
+    public function hapusSemua(){
+        $this->db->query("DELETE FROM paket");
+        $this->db->execute();
+        return true;
+    }
 }

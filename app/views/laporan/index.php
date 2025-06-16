@@ -39,9 +39,14 @@
 
     <div class="card rounded-4 shadow-lg border-0">
         <div class="card-body p-4">
-            <h5 class="card-title fw-bold text-dark mb-4 pb-3 border-bottom">
-                <i class="bi bi-journal-text me-2 text-info"></i>Daftar Pengiriman
-            </h5>
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-1-5">
+                <h2 class="h5 fw-bold text-dark mb-0"><i class="bi bi-journal-text me-2 text-info"></i>Daftar Pengiriman</h2>
+                <form action="<?= BASEURL; ?>/laporan/hapusSemua" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus SEMUA riwayat aktivitas? Tindakan ini tidak dapat dibatalkan.');">
+                    <button type="submit" class="btn btn-danger rounded-pill px-3 py-1-5 shadow-sm">
+                        <i class="bi bi-trash-fill me-1"></i> Hapus Semua Paket
+                    </button>
+                </form>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover align-middle">
                     <thead class="table-primary-subtle border-bottom border-primary-subtle">
@@ -68,24 +73,24 @@
                                     <td class="text-end">Rp <?= number_format($lap['ongkos_kirim'], 0, ',', '.') ?></td>
                                     <td>
                                         <?php
-                                            $status_badge_class = '';
-                                            switch ($lap['status']) {
-                                                case 'Terkirim':
-                                                    $status_badge_class = 'badge text-bg-success';
-                                                    break;
-                                                case 'Transit':
-                                                    $status_badge_class = 'badge text-bg-warning';
-                                                    break;
-                                                case 'Dalam Pengantaran':
-                                                    $status_badge_class = 'badge text-bg-info';
-                                                    break;
-                                                case 'Pickup':
-                                                    $status_badge_class = 'badge text-bg-primary';
-                                                    break;
-                                                default:
-                                                    $status_badge_class = 'badge text-bg-secondary';
-                                                    break;
-                                            }
+                                        $status_badge_class = '';
+                                        switch ($lap['status']) {
+                                            case 'Terkirim':
+                                                $status_badge_class = 'badge text-bg-success';
+                                                break;
+                                            case 'Transit':
+                                                $status_badge_class = 'badge text-bg-warning';
+                                                break;
+                                            case 'Dalam Pengantaran':
+                                                $status_badge_class = 'badge text-bg-info';
+                                                break;
+                                            case 'Pickup':
+                                                $status_badge_class = 'badge text-bg-primary';
+                                                break;
+                                            default:
+                                                $status_badge_class = 'badge text-bg-secondary';
+                                                break;
+                                        }
                                         ?>
                                         <span class="<?= $status_badge_class ?>"><?= htmlspecialchars($lap['status']) ?></span>
                                     </td>
@@ -136,7 +141,8 @@
 
     /* Form Control Styling (consistent with previous elements) */
     .form-select-lg {
-        height: calc(3.5rem + 2px); /* Larger select fields */
+        height: calc(3.5rem + 2px);
+        /* Larger select fields */
         padding: 0.75rem 1.5rem;
         font-size: 1.1rem;
     }
@@ -166,33 +172,42 @@
 
     /* Table Styling */
     .table {
-        border-collapse: separate; /* Required for rounded borders on cells if you want them */
-        border-spacing: 0 0.5rem; /* Space between rows (optional, can remove) */
+        border-collapse: separate;
+        /* Required for rounded borders on cells if you want them */
+        border-spacing: 0 0.5rem;
+        /* Space between rows (optional, can remove) */
     }
 
     .table th,
     .table td {
-        padding: 1rem 1rem; /* More padding for cells */
+        padding: 1rem 1rem;
+        /* More padding for cells */
         vertical-align: middle;
     }
 
     .table thead th {
-        border-bottom: 2px solid var(--bs-primary-subtle); /* Stronger bottom border for header */
+        border-bottom: 2px solid var(--bs-primary-subtle);
+        /* Stronger bottom border for header */
         font-weight: 700;
         text-transform: uppercase;
         font-size: 0.85rem;
         letter-spacing: 0.5px;
-        background-color: var(--bs-table-striped-bg); /* Use Bootstrap var for consistent striped row color */
+        background-color: var(--bs-table-striped-bg);
+        /* Use Bootstrap var for consistent striped row color */
     }
 
     .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #f8f9fa; /* Lighter background for odd rows */
+        background-color: #f8f9fa;
+        /* Lighter background for odd rows */
     }
 
     .table-hover tbody tr:hover {
-        background-color: #e9ecef; /* Subtle hover effect */
-        transform: translateY(-2px); /* Lift effect on hover */
-        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.08); /* Subtle shadow on hover */
+        background-color: #e9ecef;
+        /* Subtle hover effect */
+        transform: translateY(-2px);
+        /* Lift effect on hover */
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.08);
+        /* Subtle shadow on hover */
         transition: all 0.2s ease;
     }
 
@@ -201,7 +216,8 @@
         padding: 0.5em 0.8em;
         font-size: 0.75em;
         font-weight: 600;
-        border-radius: 0.35rem; /* Slightly rounded */
+        border-radius: 0.35rem;
+        /* Slightly rounded */
         text-transform: capitalize;
     }
 

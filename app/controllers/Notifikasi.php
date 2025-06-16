@@ -8,4 +8,15 @@ class Notifikasi extends Controller {
         $this->view('notifikasi/index', $data);
         $this->view('templates/footer');
     }
+
+    public function hapusSemua() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->model('Notifikasi_model')->hapusSemua();
+            header('Location: ' . BASEURL . '/notifikasi');
+            exit;
+        } else {
+            header('Location: ' . BASEURL . '/notifikasi');
+            exit;
+        }
+    }
 }

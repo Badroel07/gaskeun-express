@@ -25,4 +25,15 @@ class Laporan extends Controller
         $this->view('laporan/index', $data);
         $this->view('templates/footer');
     }
+
+    public function hapusSemua() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->model('Laporan_model')->hapusSemua();
+            header('Location: ' . BASEURL . '/laporan');
+            exit;
+        } else {
+            header('Location: ' . BASEURL . '/laporan');
+            exit;
+        }
+    }
 }
