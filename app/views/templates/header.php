@@ -117,7 +117,7 @@ $current_page = basename($_SERVER['REQUEST_URI']);
 <aside id="sidebar" class="d-lg-block d-none vh-100 position-fixed" style="width: 260px; z-index: 1040;">
     <div class="sidebar-header d-flex align-items-center justify-content-center p-3">
         <img src="<?= BASEURL ?>/images/logo.png" alt="Expedition Logo" class="rounded-circle me-3 border border-light p-1" width="45" height="45">
-        <span class="fs-4 fw-bold text-white text-shadow-glow">Gaskeun Express</span>
+        <span class="fs-5 fw-bold text-white text-shadow-glow">Gaskeun Express</span>
     </div>
 
     <nav class="nav flex-column p-3">
