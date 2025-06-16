@@ -4,7 +4,7 @@ class Pelacakan extends Controller
 {
     public function index()
     {
-        $data['judul'] = 'Home';
+        $data['judul'] = 'Pelacakan';
         $data['pelacakan'] = $this->model('Pelacakan_model')->getAllPelacakan();
         $this->view('templates/header', $data);
         $this->view('pelacakan/index', $data);
