@@ -63,7 +63,7 @@
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="<?= BASEURL; ?>/tarif/tambah" method="post">
+            <form action="<?= BASEURL; ?>/tarif/tambah" method="post" id="formTarif">
                 <div class="modal-header">
                     <h5 class="modal-title" id="formModalLabel">Tambah Data Tarif</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -113,3 +113,95 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle "Tambah Data Tarif" button click
+        const tombolTambah = document.getElementById('tombolTambahData');
+        if (tombolTambah) {
+            tombolTambah.addEventListener('click', function() {
+                // Reset form and set for adding new data
+                const form = document.getElementById('formTarif');
+                form.reset();
+                document.getElementById('formModalLabel').textContent = 'Tambah Data Tarif';
+                form.action = '<?= BASEURL; ?>/tarif/tambah';
+                
+                // Clear hidden ID field
+                document.getElementById('id_tarif').value = '';
+                
+                // Reset all select elements to default
+                document.getElementById('id_kota_asal').selectedIndex = 0;
+                document.getElementById('id_kota_tujuan').selectedIndex = 0;
+                document.getElementById('id_layanan').selectedIndex = 0;
+                document.getElementById('tarif_per_kg').value = '';
+            });
+        }
+        
+        // Handle "Ubah" buttons
+        const tombolUbah = document.querySelectorAll('.tampilModalUbahTarif');
+        tombolUbah.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                // Set form for editing
+                const form = document.getElementById('formTarif');
+                document.getElementById('formModalLabel').textContent = 'Ubah Data Tarif';
+                form.action = '<?= BASEURL; ?>/tarif/ubah';
+                
+                // Get tarif ID from data attribute
+                const id = this.getAttribute('data-id');
+                
+                // Fetch tarif data via AJAX
+                fetch('<?= BASEURL; ?>/tarif/getUbah', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + encodeURIComponent(id)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Populate form with fetched data
+                    document.getElementById('id_tarif').value = data.id_tarif;
+                    
+                    // Set select elements
+                    const kotaAsalSelect = document.getElementById('id_kota_asal');
+                    const kotaTujuanSelect = document.getElementById('id_kota_tujuan');
+                    const layananSelect = document.getElementById('id_layanan');
+                    
+                    // Find and select the correct options
+                    for (let i = 0; i < kotaAsalSelect.options.length; i++) {
+                        if (kotaAsalSelect.options[i].value == data.id_kota_asal) {
+                            kotaAsalSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    for (let i = 0; i < kotaTujuanSelect.options.length; i++) {
+                        if (kotaTujuanSelect.options[i].value == data.id_kota_tujuan) {
+                            kotaTujuanSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    for (let i = 0; i < layananSelect.options.length; i++) {
+                        if (layananSelect.options[i].value == data.id_layanan) {
+                            layananSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    // Set tarif value
+                    document.getElementById('tarif_per_kg').value = data.tarif_per_kg;
+                })
+                .catch(error => {
+                    console.error('Error fetching tarif data:', error);
+                    alert('Gagal mengambil data tarif. Silakan coba lagi.');
+                });
+            });
+        });
+    });
+</script>

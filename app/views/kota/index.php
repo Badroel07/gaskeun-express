@@ -81,3 +81,54 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Tombol Tambah
+        const tombolTambah = document.getElementById('tombolTambahData');
+        if (tombolTambah) {
+            tombolTambah.addEventListener('click', function () {
+                const form = document.querySelector('#formModal form');
+                form.reset();
+                document.getElementById('formModalLabel').textContent = 'Tambah Data Kota';
+                form.action = '<?= BASEURL; ?>/kota/tambah';
+
+                // Kosongkan input hidden
+                document.getElementById('id_kota').value = '';
+            });
+        }
+
+        // Tombol Ubah
+        const tombolUbah = document.querySelectorAll('.tampilModalUbahKota');
+        tombolUbah.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.querySelector('#formModal form');
+                form.action = '<?= BASEURL; ?>/kota/ubah';
+                document.getElementById('formModalLabel').textContent = 'Ubah Data Kota';
+
+                // Ambil data kota via fetch
+                fetch('<?= BASEURL; ?>/kota/getUbah', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + encodeURIComponent(id)
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Gagal mengambil data');
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('id_kota').value = data.id_kota;
+                    document.getElementById('nama_kota').value = data.nama_kota;
+                    document.getElementById('zona_kota').value = data.zona_kota;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Gagal mengambil data kota. Silakan coba lagi.');
+                });
+            });
+        });
+    });
+</script>

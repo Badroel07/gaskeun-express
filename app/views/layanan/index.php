@@ -84,3 +84,54 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Handle "Tambah Data Layanan" button click
+        const tombolTambah = document.getElementById('tombolTambahData');
+        if (tombolTambah) {
+            tombolTambah.addEventListener('click', function () {
+                const form = document.querySelector('#formModal form');
+                form.reset();
+                document.getElementById('formModalLabel').textContent = 'Tambah Data Layanan';
+                form.action = '<?= BASEURL; ?>/layanan/tambah';
+
+                // Kosongkan field hidden id
+                document.getElementById('id_layanan').value = '';
+            });
+        }
+
+        // Handle "Ubah Data Layanan" button
+        const tombolUbah = document.querySelectorAll('.tampilModalUbahLayanan');
+        tombolUbah.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                const form = document.querySelector('#formModal form');
+                form.action = '<?= BASEURL; ?>/layanan/ubah';
+                document.getElementById('formModalLabel').textContent = 'Ubah Data Layanan';
+
+                // Fetch data via AJAX
+                fetch('<?= BASEURL; ?>/layanan/getUbah', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'id=' + encodeURIComponent(id)
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Gagal mengambil data');
+                    return response.json();
+                })
+                .then(data => {
+                    // Isi form dengan data
+                    document.getElementById('id_layanan').value = data.id_layanan;
+                    document.getElementById('nama_layanan').value = data.nama_layanan;
+                    document.getElementById('deskripsi_layanan').value = data.deskripsi_layanan;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Gagal mengambil data layanan. Silakan coba lagi.');
+                });
+            });
+        });
+    });
+</script>
