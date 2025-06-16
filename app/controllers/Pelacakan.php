@@ -26,8 +26,9 @@ class Pelacakan extends Controller
     {
         $id_paket = $_POST['id_paket'];
         $status = $_POST['status_saat_ini'];
+        $keterangan = $_POST['keterangan'];
 
-        if ($this->model('Pelacakan_model')->updateStatusPaket($id_paket, $status)) {
+        if ($this->model('Pelacakan_model')->updateStatusPaket($id_paket, $status, $keterangan)) {
             Flasher::setFlash('Status berhasil diperbarui', 'success');
         } else {
             Flasher::setFlash('Gagal memperbarui status', 'danger');

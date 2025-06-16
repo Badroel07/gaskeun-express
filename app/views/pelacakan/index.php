@@ -25,7 +25,8 @@
                     <h5 class="card-title fw-bold text-dark mb-4 pb-2 border-bottom">Hasil Pelacakan ID Paket: <span class="text-primary"><?= htmlspecialchars($id_paket ?? '') ?></span></h5>
 
                     <div class="row g-3 tracking-details mb-4">
-                        <?php $item = $data['pelacakan'][0]; // Assuming $data['pelacakan'] has one main item for general details ?>
+                        <?php $item = $data['pelacakan'][0]; // Assuming $data['pelacakan'] has one main item for general details 
+                        ?>
                         <div class="col-md-6 col-lg-4">
                             <p class="mb-0 text-muted small">ID Paket</p>
                             <p class="mb-0 fw-semibold text-dark"><?= htmlspecialchars($item['id_paket']) ?></p>
@@ -108,7 +109,7 @@
                     <form action="<?= BASEURL ?>/pelacakan/updateStatus" method="POST" class="mt-5 pt-3 border-top">
                         <input type="hidden" name="id_paket" value="<?= htmlspecialchars($item['id_paket']) ?>">
                         <div class="row g-3 align-items-end">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <label for="update-status-select" class="form-label text-muted fw-semibold">Perbarui Status Paket</label>
                                 <select name="status_saat_ini" id="update-status-select" class="form-select form-select-lg rounded-pill shadow-sm">
                                     <option value="Pickup" <?= ($item['status_saat_ini'] == 'Pickup') ? 'selected' : '' ?>>Pickup</option>
@@ -117,7 +118,16 @@
                                     <option value="Terkirim" <?= ($item['status_saat_ini'] == 'Terkirim') ? 'selected' : '' ?>>Terkirim</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-md-auto">
+                            <div class="col-12 col-md-5">
+                                <label for="keterangan-tambahan" class="form-label text-muted fw-semibold">Keterangan Tambahan</label>
+                                <select name="keterangan" id="keterangan-tambahan" class="form-select form-select-lg rounded-pill shadow-sm">
+                                    <option value="Paket sedang di pickup oleh kurir">Paket sedang di pickup oleh kurir</option>
+                                    <option value="Paket sedang dalam perjalanan menuju transit selanjutnya">Paket sedang dalam perjalanan menuju transit selanjutnya</option>
+                                    <option value="Paket sedang transit di gudang pengiriman">Paket sedang transit di gudang pengiriman</option>
+                                    <option value="Paket selesai di kirimkan ke penerima">Paket selesai di kirimkan</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-3">
                                 <button type="submit" class="btn btn-success-gradient w-100 rounded-pill py-2 px-4 shadow-sm">
                                     <i class="bi bi-arrow-clockwise me-2"></i> Update Status
                                 </button>
@@ -219,7 +229,8 @@
 
     /* Tracking Details Grid */
     .tracking-details p {
-        margin-bottom: 0.2rem; /* Reduce space between label and value */
+        margin-bottom: 0.2rem;
+        /* Reduce space between label and value */
     }
 
     .tracking-details .text-muted.small {
@@ -232,7 +243,8 @@
     .timeline {
         position: relative;
         padding: 1rem 0;
-        margin-left: 2rem; /* Space for the line and icons */
+        margin-left: 2rem;
+        /* Space for the line and icons */
     }
 
     .timeline::before {
@@ -242,14 +254,16 @@
         bottom: 0;
         left: 0;
         width: 3px;
-        background-color: #dee2e6; /* Light gray line */
+        background-color: #dee2e6;
+        /* Light gray line */
         border-radius: 3px;
     }
 
     .timeline-item {
         position: relative;
         margin-bottom: 2rem;
-        padding-left: 2rem; /* Space for content after icon */
+        padding-left: 2rem;
+        /* Space for content after icon */
     }
 
     .timeline-item:last-child {
@@ -258,7 +272,8 @@
 
     .timeline-icon {
         position: absolute;
-        left: -1rem; /* Adjust to align with the line */
+        left: -1rem;
+        /* Adjust to align with the line */
         top: 0;
         background-color: #fff;
         border: 3px solid #dee2e6;
@@ -271,24 +286,30 @@
         font-size: 1.2rem;
         color: #6c757d;
         transition: all 0.3s ease;
-        z-index: 1; /* Ensure icon is above the line */
+        z-index: 1;
+        /* Ensure icon is above the line */
     }
 
     .timeline-item.active .timeline-icon {
-        border-color: #007bff; /* Primary color border for active */
+        border-color: #007bff;
+        /* Primary color border for active */
         color: #007bff;
-        box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.2); /* Glow effect */
+        box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.2);
+        /* Glow effect */
     }
 
     .timeline-content {
         padding: 1rem;
-        background-color: #f8f9fa; /* Light background for content */
-        border-left: 4px solid #007bff; /* Primary border for active */
+        background-color: #f8f9fa;
+        /* Light background for content */
+        border-left: 4px solid #007bff;
+        /* Primary border for active */
         transition: all 0.3s ease;
     }
 
     .timeline-item.active .timeline-content {
-        border-left-color: #007bff; /* Highlight active content */
+        border-left-color: #007bff;
+        /* Highlight active content */
         box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
     }
 

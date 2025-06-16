@@ -45,11 +45,12 @@ class Pelacakan_model
         return $this->db->resultSet(); // gunakan ->single() jika hanya ambil 1
     }
 
-    public function updateStatusPaket($id_paket, $status)
+    public function updateStatusPaket($id_paket, $status, $keterangan)
     {
-        $this->db->query("UPDATE pelacakan SET status_saat_ini = :status WHERE id_paket = :id_paket");
+        $this->db->query("UPDATE pelacakan SET status_saat_ini = :status, keterangan = :keterangan WHERE id_paket = :id_paket");
         $this->db->bind('status', $status);
         $this->db->bind('id_paket', $id_paket);
+        $this->db->bind('keterangan', $keterangan);
 
         return $this->db->execute();
     }

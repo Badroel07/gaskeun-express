@@ -88,9 +88,6 @@
                                         Status: <strong class="<?= $status_color_class ?>"><?= $dashboard['status_saat_ini'] ?></strong> – <?= $dashboard['tanggal_update'] ?>
                                     </p>
                                 </div>
-                                <div class="ms-auto text-end">
-                                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3">Detail <i class="bi bi-chevron-right ms-1"></i></button>
-                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
