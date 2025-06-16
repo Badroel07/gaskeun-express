@@ -45,12 +45,19 @@ class Pelacakan_model
         return $this->db->resultSet(); // gunakan ->single() jika hanya ambil 1
     }
 
-    public function updateStatusPaket($id_paket, $status, $keterangan)
+    public function getAllKurir()
     {
-        $this->db->query("UPDATE pelacakan SET status_saat_ini = :status, keterangan = :keterangan WHERE id_paket = :id_paket");
+        $this->db->query("SELECT * FROM kurir");
+        return $this->db->resultSet();
+    }
+
+    public function updateStatusPaket($id_paket, $status, $keterangan, $id_kurir)
+    {
+        $this->db->query("UPDATE pelacakan SET status_saat_ini = :status, keterangan = :keterangan, id_kurir = :id_kurir WHERE id_paket = :id_paket");
         $this->db->bind('status', $status);
         $this->db->bind('id_paket', $id_paket);
         $this->db->bind('keterangan', $keterangan);
+        $this->db->bind('id_kurir', $id_kurir);
 
         return $this->db->execute();
     }

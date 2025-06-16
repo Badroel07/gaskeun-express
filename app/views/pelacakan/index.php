@@ -108,28 +108,38 @@
 
                     <form action="<?= BASEURL ?>/pelacakan/updateStatus" method="POST" class="mt-5 pt-3 border-top">
                         <input type="hidden" name="id_paket" value="<?= htmlspecialchars($item['id_paket']) ?>">
-                        <div class="row g-3 align-items-end">
-                            <div class="col-12 col-md-4">
+                        <div class="row gx-2 gy-2 align-items-end">
+                            <div class="col-md-3">
                                 <label for="update-status-select" class="form-label text-muted fw-semibold">Perbarui Status Paket</label>
-                                <select name="status_saat_ini" id="update-status-select" class="form-select form-select-lg rounded-pill shadow-sm">
+                                <select name="status_saat_ini" id="update-status-select" class="form-select rounded-4 shadow-sm py-2">
                                     <option value="Pickup" <?= ($item['status_saat_ini'] == 'Pickup') ? 'selected' : '' ?>>Pickup</option>
                                     <option value="Dalam Pengantaran" <?= ($item['status_saat_ini'] == 'Dalam Pengantaran') ? 'selected' : '' ?>>Dalam Pengantaran</option>
                                     <option value="Transit" <?= ($item['status_saat_ini'] == 'Transit') ? 'selected' : '' ?>>Transit</option>
                                     <option value="Terkirim" <?= ($item['status_saat_ini'] == 'Terkirim') ? 'selected' : '' ?>>Terkirim</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-md-5">
+                            <div class="col-md-4">
                                 <label for="keterangan-tambahan" class="form-label text-muted fw-semibold">Keterangan Tambahan</label>
-                                <select name="keterangan" id="keterangan-tambahan" class="form-select form-select-lg rounded-pill shadow-sm">
+                                <select name="keterangan" id="keterangan-tambahan" class="form-select rounded-4 shadow-sm py-2">
                                     <option value="Paket sedang di pickup oleh kurir">Paket sedang di pickup oleh kurir</option>
                                     <option value="Paket sedang dalam perjalanan menuju transit selanjutnya">Paket sedang dalam perjalanan menuju transit selanjutnya</option>
                                     <option value="Paket sedang transit di gudang pengiriman">Paket sedang transit di gudang pengiriman</option>
                                     <option value="Paket selesai di kirimkan ke penerima">Paket selesai di kirimkan</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-md-3">
-                                <button type="submit" class="btn btn-success-gradient w-100 rounded-pill py-2 px-4 shadow-sm">
-                                    <i class="bi bi-arrow-clockwise me-2"></i> Update Status
+                            <div class="col-md-3">
+                                <select name="id_kurir" id="kurir-pengirim" class="form-select rounded-4 shadow-sm py-2">
+                                    <option value="">Kurir Pengirim</option>
+                                    <?php foreach ($data['kurirList'] as $kurir): ?>
+                                        <option value="<?= $kurir['id_kurir']; ?>" <?= ($data['id_kurir'] == $kurir['id_kurir']) ? 'selected' : '' ?>>
+                                            <?= $kurir['nama_kurir']; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 d-grid">
+                                <button type="submit" class="btn btn-success rounded-4 shadow-sm py-2">
+                                    <i class="bi bi-arrow-clockwise me-1"></i> Update Status
                                 </button>
                             </div>
                         </div>
