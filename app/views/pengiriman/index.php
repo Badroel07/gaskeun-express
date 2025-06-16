@@ -98,3 +98,55 @@
         </div>
     </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const calculateBtn = document.getElementById('calculate-cost-btn');
+    const weightInput = document.getElementById('package-weight');
+    const serviceSelect = document.getElementById('service-type');
+    const originSelect = document.getElementById('origin-city');
+    const destinationSelect = document.getElementById('destination-city');
+    const costDisplay = document.getElementById('shipping-cost');
+
+    calculateBtn.addEventListener('click', function () {
+        const berat = parseFloat(weightInput.value);
+        const idLayanan = serviceSelect.value;
+        const idKotaAsal = originSelect.value;
+        const idKotaTujuan = destinationSelect.value;
+
+        if (!berat || !idLayanan || !idKotaAsal || !idKotaTujuan) {
+            alert("Lengkapi semua data paket terlebih dahulu.");
+            return;
+        }
+
+        // Kirim data ke server menggunakan fetch
+        fetch("<?= BASEURL; ?>/pengiriman/getTarif", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `id_layanan=${idLayanan}&id_kota_asal=${idKotaAsal}&id_kota_tujuan=${idKotaTujuan}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.tarif_per_kg) {
+                const total = berat * parseFloat(data.tarif_per_kg);
+                const formatted = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                }).format(total);
+
+                costDisplay.value = formatted;
+            } else {
+                costDisplay.value = 'Rp 0';
+                alert("Tarif tidak ditemukan untuk kombinasi tersebut.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Gagal menghitung ongkos kirim.");
+        });
+    });
+});
+</script>

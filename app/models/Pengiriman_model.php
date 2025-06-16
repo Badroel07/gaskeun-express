@@ -1,23 +1,28 @@
 <?php
 
-class Pengiriman_model {
+class Pengiriman_model
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database;
     }
 
-    public function getAllLayanan() {
+    public function getAllLayanan()
+    {
         $this->db->query('SELECT * FROM layanan');
         return $this->db->resultSet();
     }
 
-    public function getAllKota() {
+    public function getAllKota()
+    {
         $this->db->query('SELECT * FROM kota');
         return $this->db->resultSet();
     }
 
-    public function tambahPengiriman($data) {
+    public function tambahPengiriman($data)
+    {
         // Insert pengirim
         $this->db->query('INSERT INTO pengirim (nama_pengirim, alamat_pengirim, telepon_pengirim) 
                          VALUES (:nama, :alamat, :telepon)');
@@ -66,5 +71,14 @@ class Pengiriman_model {
         $this->db->bind('id_paket', $idPaket);
         $this->db->bind('status', 'Created');
         return $this->db->execute();
+    }
+
+    public function getTarifPerKg($idLayanan, $idKotaAsal, $idKotaTujuan)
+    {
+        $this->db->query("SELECT tarif_per_kg FROM tarif WHERE id_layanan = :layanan AND id_kota_asal = :asal AND id_kota_tujuan = :tujuan");
+        $this->db->bind('layanan', $idLayanan);
+        $this->db->bind('asal', $idKotaAsal);
+        $this->db->bind('tujuan', $idKotaTujuan);
+        return $this->db->single();
     }
 }
